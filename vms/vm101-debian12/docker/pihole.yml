@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    # mantiene el contenedor activo o lo reinicia si se cae por lo que sea
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "450:80/tcp" 
+    environment:
+      TZ: 'Europe/Madrid' # Ajusta a tu zona horaria
+      WEBPASSWORD: 'quenohostia
+    volumes:
+      - '/docker/pihole/etc-pihole:/etc/pihole'
+      - '/docker/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
+    # pa q pihole use dns externo
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8

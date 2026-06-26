@@ -1,0 +1,22 @@
+version: '3'
+services:
+  transmission:
+   image: ghcr.io/linuxserver/transmission
+   container_name: transmission
+   environment:
+     - PUID=1000
+     - PGID=1000
+     - TZ=Europe/Madrid #Por defecto London
+     - USER=admin #Usuario para acceder por web
+     - PASS=EH COMO ALGUNO DE VOSOTROS HIJOS DEL DIALO ME SAQUEIS LAS PWDS OS BUSCARE Y MATARE
+     - WHITELIST=*.*.*.* #Para poder acceder desde cualquier IP
+     - HOST_WHITELIST=  #Dejar vacío
+   volumes:
+     - /docker/transmission:/config   #Ruta de configuración 
+     - /media/hdmedia/descargas:/downloads #Ruta descargas
+     - /media/hdmedia/descargas:/watch #Ruta para visualizar torrents (no lo uso)
+   ports:
+     - 9091:9091 #Puerto para acceder por web
+     - 52413:52413
+     - 52413:52413/udp
+   restart: unless-stopped 

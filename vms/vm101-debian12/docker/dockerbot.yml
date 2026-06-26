@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    docker_bot:
+        environment:
+            - TELEGRAM_TOKEN=jaja no te voy a pasar el  token nub
+            - TELEGRAM_ADMIN=jaja no te voy a pasar el user nub
+            - CONTAINER_NAME=docker_bot
+            #- TELEGRAM_GROUP=
+            #- TELEGRAM_THREAD=1
+            #- CHECK_UPDATES=1
+            #- CHECK_UPDATE_EVERY_HOURS=4
+            #- BUTTON_COLUMNS=2
+            #- LANGUAGE=ES
+            #- EXTENDED_MESSAGES=0
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        image: dgongut/docker-controller-bot:latest
+        container_name: docker_bot
+        restart: always
+        network_mode: host
+        tty: true

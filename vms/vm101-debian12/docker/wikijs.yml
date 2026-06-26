@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: wikijs-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
+    volumes:
+      - /docker/wiki-js/db:/var/lib/postgresql/data
+
+  wiki:
+    image: ghcr.io/requarks/wiki:2
+    container_name: wikijs
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "2008:3000"  # Acceso desde http://192.168.0.11:2008
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: 
+      DB_PASS: 
+      DB_NAME: 
+    volumes:
+      - /docker/wiki-js/config:/config
+      - /docker/wiki-js/data:/data

@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  wg-easy:
+    image: weejewel/wg-easy
+    container_name: wg-easy
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - WG_HOST=84.123.12.37 #ip pública o local
+      - PASSWORD=putos
+    ports:
+      - "51820:51820/udp"
+      - "51821:51821/tcp"
+    volumes:
+      - wg-easy-data:/etc/wireguard
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+
+volumes:
+  wg-easy-data:
+ # esto es la vpn (wire guard) que me conozco y se que no sabre lo q es por el nombre

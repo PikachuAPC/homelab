@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  db:
+    image: mariadb:11
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=eh mira os buscaré la ruina como me doxxeeis
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+
+  redis:
+    image: redis:alpine
+    restart: always
+
+  app:
+    image: nextcloud:stable
+    restart: always
+    ports:
+      - 7800:80
+    links:
+      - db
+      - redis
+    volumes:
+      - /media/hdmedia/nextcloud:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_HOST=
+      - REDIS_HOST=
+
+volumes:
+  db:
+  nextcloud:

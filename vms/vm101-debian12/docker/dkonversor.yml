@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  dkonversor:
+    image: pikachuapc/dkonversor:latest
+    container_name: dkonversor
+    restart: unless-stopped
+    
+    ports:
+      - "8089:3000"  
+    
+    # configuración de la aplicación
+    environment:
+      - MAX_FILE_SIZE=524288000     # en bytes
+      - AUTO_DELETE_HOURS=1         # tiempo q permanecen los archivos
+      - MAX_CONCURRENT_JOBS=2       # max de conversiones a la vez
+    
+    volumes:
+      - /media/hdmedia/uploads:/app/uploads
+      - /media/hdmedia/converted:/app/converted
+      - /docker/DKonversor/tmp:/app/tmp
+    
